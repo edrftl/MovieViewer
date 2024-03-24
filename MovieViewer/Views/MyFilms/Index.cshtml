@@ -1,0 +1,23 @@
+﻿@model List<Film>;
+
+<div class="row">
+    <div class="col-9">
+        <div class="row row-cols-1 row-cols-md-3">
+            @foreach (var film in Model)
+            {
+                <div class="col">
+                    <div class="card h-75 mb-3">
+                        <img height="550" src="@film.ImageUrl" class="card-img-top" alt="@film.Name">
+                        <div class="card-body">
+                            <h5 class="card-title">@film.Name</h5>
+                            <p class="card-text">Year : @film.Year</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-3">
+        <a asp-controller="MyFilms" asp-action="Create" class="btn btn-primary">Create New Film</a>
+    </div>
+</div>
