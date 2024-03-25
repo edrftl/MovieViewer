@@ -38,5 +38,40 @@ namespace MovieViewer.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult Edit(int id)
+        {
+            var item = context.Films.Find(id);
+            if (item == null) return NotFound();
+
+            var categories = new SelectList(context.Category.ToList(), nameof(Film.Id), nameof(Film.Name));
+            ViewBag.Categories = categories;
+
+            return View(item);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Film model)
+        {
+            // TODO: add model validation
+
+            context.Films.Update(model);
+            context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        public IActionResult Delete(int id)
+        {
+            var item = context.Films.Find(id);
+
+            if (item == null) return NotFound();
+
+            context.Films.Remove(item);
+            context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
