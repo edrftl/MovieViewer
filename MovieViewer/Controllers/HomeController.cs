@@ -173,8 +173,6 @@ namespace MovieViewer.Controllers
 
         public async Task<IActionResult> Cartoons()
         {
-
-
             var client = new HttpClient
             {
                 Timeout = TimeSpan.FromSeconds(30)
