@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MovieViewer.Data;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ string connStr = builder.Configuration.GetConnectionString("LocalDb")!;
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<FilmsDbContext>(opt => opt.UseSqlServer(connStr));
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 

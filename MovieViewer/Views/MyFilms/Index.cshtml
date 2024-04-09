@@ -28,6 +28,15 @@
         </div>
     </div>
     <div class="col-3">
-        <a asp-controller="MyFilms" asp-action="Create" class="btn btn-primary">Create New Film</a>
+        <a asp-controller="MyFilms" asp-action="Create" class="btn btn-primary mb-2">Create New Film</a>
+
+        <form class="d-flex ms-auto gap-2" asp-action="Filter" ms-auto>
+
+            <select name="categoryId" asp-items=ViewBag.Categories id="inputState" class="form-select">
+                <option selected>All Categories</option>
+            </select>
+
+            <button type="submit" class="btn btn-secondary">Filter</button>
+        </form> 
     </div>
 </div>

@@ -59,6 +59,10 @@
                         </li>
                     </ul>
                 </div>
+                <form class="d-flex" asp-controller="Home" asp-action="FindFilmByName" name="search_form">
+                    <input class="form-control me-2" type="text" name="name" placeholder="Search by Film Name">
+                    <button class="btn btn-outline-dark" id="searchByNameBtn" type="submit">Search</button>
+                </form>
             </div>
         </nav>
     </header>
