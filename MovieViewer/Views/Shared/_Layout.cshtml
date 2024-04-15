@@ -57,8 +57,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="MyFilms" asp-action="Index">Profile</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">My Cart</a>
+                        </li>
                     </ul>
                 </div>
+
+                <partial name="_LoginPartial" />
                 <form class="d-flex" asp-controller="Home" asp-action="FindFilmByName" name="search_form">
                     <input class="form-control me-2" type="text" name="name" placeholder="Search by Film Name">
                     <button class="btn btn-outline-dark" id="searchByNameBtn" type="submit">Search</button>

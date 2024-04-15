@@ -9,6 +9,7 @@ namespace MovieViewer
         public MapperProfile()
         {
             CreateMap<FilmModel, Film>().ReverseMap();
+            CreateMap<Film, FilmCardModel>();
         }
     }
 }

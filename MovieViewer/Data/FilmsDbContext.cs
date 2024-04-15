@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MovieViewer.Data.Entities;
 using System.Linq;
 using static System.Net.WebRequestMethods;
 
 namespace MovieViewer.Data
 {
-    public class FilmsDbContext : DbContext
+    public class FilmsDbContext : IdentityDbContext
     {
         public DbSet<Film> Films { get; set; }
         public DbSet<Category> Category { get; set; }

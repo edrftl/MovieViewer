@@ -49,12 +49,12 @@ namespace MovieViewer.Controllers
                 {
                     var body = await response.Content.ReadAsStringAsync();
                     var json = JsonConvert.DeserializeObject<JObject>(body);
-                    return View(json["items"]);
+                    return View("Index", json["items"]);
                 }
                 else
                 {
                     Console.WriteLine($"Failed to get data: {response.StatusCode}");
-                    return View();  // або поверніть помилкове представлення
+                    return View("Index");  // або поверніть помилкове представлення
                 }
             }
         }
@@ -85,7 +85,8 @@ namespace MovieViewer.Controllers
                 var json = JsonConvert.DeserializeObject<JObject>(body);
 
 
-                return View(json["items"]);
+                return View("Index", json["items"]);
+
             }
         }
 
@@ -114,7 +115,8 @@ namespace MovieViewer.Controllers
                 var json = JsonConvert.DeserializeObject<JObject>(body);
 
 
-                return View(json["items"]);
+                return View("Index", json["items"]);
+
             }
 
         }
@@ -142,7 +144,8 @@ namespace MovieViewer.Controllers
                 var json = JsonConvert.DeserializeObject<JObject>(body);
 
 
-                return View(json["items"]);
+                return View("Index", json["items"]);
+
             }
         }
 
@@ -171,7 +174,8 @@ namespace MovieViewer.Controllers
                 var json = JsonConvert.DeserializeObject<JObject>(body);
 
 
-                return View(json["items"]);
+                return View("Index", json["items"]);
+
             }
         }
         public IActionResult Top()
