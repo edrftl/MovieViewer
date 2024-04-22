@@ -6,12 +6,12 @@ using static System.Net.WebRequestMethods;
 
 namespace MovieViewer.Data
 {
-    public class FilmsDbContext : IdentityDbContext
+    public class FilmsDbContext : IdentityDbContext<User>
     {
         public DbSet<Film> Films { get; set; }
         public DbSet<Category> Category { get; set; }
 
-        public FilmsDbContext(DbContextOptions options) : base(options) { }
+        public FilmsDbContext(DbContextOptions<FilmsDbContext> options) : base(options) { }
 
 
 

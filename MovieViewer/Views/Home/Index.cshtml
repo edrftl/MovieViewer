@@ -14,13 +14,13 @@
                         <h5 class="card-title">@film["nameRu"]</h5>
                         <p class="card-text">@film["country"]</p>
                     </div>
+                    <div class="card-footer">
+                        <small class="text-muted">
+                            <a asp-controller="Cart" asp-action="APIAppend" asp-route-kinopoiskId="@film["kinopoiskId"]" class="btn btn-primary">Add to List</a>
+                        </small>
+                    </div>
                 </div>
-                @* <div class="card-footer">
-                    <small class="text-muted">
-                        <a asp-controller="Cart" asp-action="Append"  class="btn btn-primary">Add to Cart</a>
-                        @* asp-route-id="@film.Id" 
-                    </small>
-                </div> *@
+                
             </div>
         }
     </div>

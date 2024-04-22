@@ -49,6 +49,7 @@ namespace MovieViewer.Controllers
                 {
                     var body = await response.Content.ReadAsStringAsync();
                     var json = JsonConvert.DeserializeObject<JObject>(body);
+                    
                     return View("Index", json["items"]);
                 }
                 else

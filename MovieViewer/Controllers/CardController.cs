@@ -6,6 +6,8 @@ using MovieViewer.Data.Entities;
 using AutoMapper;
 using MovieViewer.Models;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace MovieViewer.Controllers
 {
@@ -36,20 +38,66 @@ namespace MovieViewer.Controllers
 
         public IActionResult Append(int id)
         {
-            // отримуємо дані з корзини
             var ids = HttpContext.Session.Get<List<int>>(WebConstants.CART_KEY);
 
-            // якщо корзина порожня, створюємо список
             if (ids == null) ids = new List<int>();
 
-            // додаємо новий елемент
-            ids.Add(id);
 
-            // зберігаємо новий список в корзині
+
+            ids.Add(id);
             HttpContext.Session.Set(WebConstants.CART_KEY, ids);
 
             return RedirectToAction("Index", "Home");
         }
+
+        private const string API_KEY = "5eeb2897-61b9-461c-9224-d58251a9528a";
+        public async Task<IActionResult> APIAppend(int kinopoiskId)
+        {
+            var client = new HttpClient
+            {
+                Timeout = TimeSpan.FromSeconds(30)
+            };
+
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"https://api.kinopoisk.dev/v1.4/movie/{kinopoiskId}"),
+                Headers =
+        {
+            { "accept", "application/json" },
+            { "X-API-KEY", API_KEY },
+        },
+            };
+
+            using (var response = await client.SendAsync(request))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var body = await response.Content.ReadAsStringAsync();
+                    var film = JsonConvert.DeserializeObject<JObject>(body);
+
+                    var ids = HttpContext.Session.Get<List<int>>(WebConstants.CART_KEY);
+
+                    if (ids == null) ids = new List<int>();
+
+                    // Додаємо новий елемент
+                    ids.Add(kinopoiskId);
+
+                    HttpContext.Session.Set(WebConstants.CART_KEY, ids);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to get film data: {response.StatusCode}");
+                    Console.WriteLine($"Response content: {await response.Content.ReadAsStringAsync()}");
+                    return RedirectToAction("Index", "Home"); 
+                }
+            }
+        }
+
+
+
 
         public IActionResult Remove(int id)
         {

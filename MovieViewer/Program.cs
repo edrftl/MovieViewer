@@ -1,8 +1,12 @@
-using Microsoft.EntityFrameworkCore;
-using MovieViewer.Data;
-using System.Reflection;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using MovieViewer.Data;
 using MovieViewer.Data.Entities;
+using MovieViewer.Extensions;
+using System;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +16,13 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<FilmsDbContext>(opt => opt.UseSqlServer(connStr));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<FilmsDbContext>();
+builder.Services.AddIdentity<User, IdentityRole>(
+    options =>
+        options.SignIn.RequireConfirmedAccount = false
+    )
+    .AddDefaultTokenProviders()
+    .AddDefaultUI()
+    .AddEntityFrameworkStores<FilmsDbContext>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
@@ -26,6 +36,14 @@ builder.Services.AddSession(options =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+
+    SeedExtensions.SeedRoles(serviceProvider).Wait();
+    SeedExtensions.SeedAdmin(serviceProvider).Wait();
+}
 
 if (!app.Environment.IsDevelopment())
 {
@@ -41,10 +59,11 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.UseSession();
+
 app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=MyFilms}/{action=Index}/{id?}");
+    pattern: "{controller=Cart}/{action=Index}/{id?}");
 
 app.Run();

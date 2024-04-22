@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using MovieViewer.Models;
 
 namespace MovieViewer.Controllers
 {
+    [Authorize(Roles=Roles.ADMIN)]
     public class MyFilmsController : Controller
     {
 
