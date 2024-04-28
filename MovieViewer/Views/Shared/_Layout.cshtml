@@ -20,17 +20,6 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Films
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Anime"></a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Novelty</a>
                         </li>
@@ -42,17 +31,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Anime">Anime</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Top
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Anime">Anime</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
                         </li>
                         @if (User.IsInRole(Roles.ADMIN))
                         {
@@ -67,10 +45,6 @@
                 </div>
 
                 <partial name="_LoginPartial" />
-                <form class="d-flex" asp-controller="Home" asp-action="FindFilmByName" name="search_form">
-                    <input class="form-control me-2" type="text" name="name" placeholder="Search by Film Name">
-                    <button class="btn btn-outline-dark" id="searchByNameBtn" type="submit">Search</button>
-                </form>
             </div>
         </nav>
     </header>

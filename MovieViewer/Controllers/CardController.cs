@@ -50,63 +50,61 @@ namespace MovieViewer.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private const string API_KEY = "5eeb2897-61b9-461c-9224-d58251a9528a";
-        public async Task<IActionResult> APIAppend(int kinopoiskId)
-        {
-            var client = new HttpClient
-            {
-                Timeout = TimeSpan.FromSeconds(30)
-            };
+        //private const string API_KEY = "5eeb2897-61b9-461c-9224-d58251a9528a";
+        //public async Task<IActionResult> APIAppend(int kinopoiskId)
+        //{
+        //    var client = new HttpClient
+        //    {
+        //        Timeout = TimeSpan.FromSeconds(30)
+        //    };
 
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri($"https://api.kinopoisk.dev/v1.4/movie/{kinopoiskId}"),
-                Headers =
-        {
-            { "accept", "application/json" },
-            { "X-API-KEY", API_KEY },
-        },
-            };
+        //    var request = new HttpRequestMessage
+        //    {
+        //        Method = HttpMethod.Get,
+        //        RequestUri = new Uri($"https://api.kinopoisk.dev/v1.4/movie/{kinopoiskId}"),
+        //        Headers =
+        //{
+        //    { "accept", "application/json" },
+        //    { "X-API-KEY", API_KEY },
+        //},
+        //    };
 
-            using (var response = await client.SendAsync(request))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    var body = await response.Content.ReadAsStringAsync();
-                    var film = JsonConvert.DeserializeObject<JObject>(body);
+        //    using (var response = await client.SendAsync(request))
+        //    {
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            var body = await response.Content.ReadAsStringAsync();
+        //            var film = JsonConvert.DeserializeObject<JObject>(body);
 
-                    var ids = HttpContext.Session.Get<List<int>>(WebConstants.CART_KEY);
+        //            var ids = HttpContext.Session.Get<List<int>>(WebConstants.CART_KEY);
 
-                    if (ids == null) ids = new List<int>();
+        //            if (ids == null) ids = new List<int>();
 
-                    // Додаємо новий елемент
-                    ids.Add(kinopoiskId);
+        //            // Додаємо новий елемент
+        //            ids.Add(kinopoiskId);
 
-                    HttpContext.Session.Set(WebConstants.CART_KEY, ids);
+        //            HttpContext.Session.Set(WebConstants.CART_KEY, ids);
 
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    Console.WriteLine($"Failed to get film data: {response.StatusCode}");
-                    Console.WriteLine($"Response content: {await response.Content.ReadAsStringAsync()}");
-                    return RedirectToAction("Index", "Home"); 
-                }
-            }
-        }
+        //            return RedirectToAction("Index", "Home");
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine($"Failed to get film data: {response.StatusCode}");
+        //            Console.WriteLine($"Response content: {await response.Content.ReadAsStringAsync()}");
+        //            return RedirectToAction("Index", "Home"); 
+        //        }
+        //    }
+        //}
 
 
 
 
         public IActionResult Remove(int id)
         {
-            // отримуємо дані з корзини
             var ids = HttpContext.Session.Get<List<int>>(WebConstants.CART_KEY);
 
             if (ids != null) ids.Remove(id);
 
-            // зберігаємо новий список в корзині
             HttpContext.Session.Set(WebConstants.CART_KEY, ids);
 
             return RedirectToAction("Index");
