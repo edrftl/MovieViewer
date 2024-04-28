@@ -6,8 +6,8 @@
             @foreach (var film in Model)
             {
                 <div class="col">
-                    <div class="card h-75 mb-3">
-                        <img height="550" src="@film.ImageUrl" class="card-img-top" alt="@film.Name">
+                    <div class="card  mb-3">
+                        <img height="350" src="@film.ImageUrl" class="card-img-top" alt="@film.Name">
                         <div class="row card-body">
                             <div class="col-md-10">
                                 <h5 class="card-title">@film.Name</h5>
@@ -22,12 +22,13 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">
-                            <a asp-controller="Cart" asp-action="Append" asp-route-id="@film.Id" class="btn btn-primary">Add to Cart</a>
-                            @*  *@
-                        </small>
+
+                        <div class="card-footer">
+                            <small class="text-muted">
+                                <a asp-controller="Cart" asp-action="Append" asp-route-id="@film.Id" class="btn btn-primary">Add to Cart</a>
+                                @*  *@
+                            </small>
+                        </div>
                     </div>
                 </div>
             }

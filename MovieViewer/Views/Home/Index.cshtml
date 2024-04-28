@@ -8,8 +8,8 @@
         @foreach (var film in Model)
         {
             <div class="col">
-                <div class="card h-100">
-                    <img height="550" src="@film["posterUrlPreview"]" class="card-img-top" alt="@film["nameEn"]">
+                <div class="card  mb-3">
+                    <img height="350" src="@film["posterUrlPreview"]" class="card-img-top" alt="@film["nameEn"]">
                     <div class="card-body">
                         <h5 class="card-title">@film["nameRu"]</h5>
                         <p class="card-text">@film["country"]</p>
